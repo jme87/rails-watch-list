@@ -1,0 +1,33 @@
+.home-banner {
+  background-image: asset-url('home-banner.jpeg');
+  background-size: cover;
+  height: 100vh;
+  color: #eee;
+  text-align: center;
+  padding-top: 40vh;
+  margin-bottom: 75px;
+
+    h1{
+      font-size: 56px;
+      color: white;
+    }
+}
+
+.list-banner {
+  background-image: asset-url('home-banner.jpeg');
+  background-size: cover;
+  height: 450px;
+  color: #eee;
+  text-align: center;
+  padding-top: 20vh;
+  margin-bottom: 55px;
+}
+
+.show-banner {
+  background-size: cover;
+  height: 600px;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding-top: 30vh;
+}

@@ -1,26 +1,36 @@
 class BookmarksController < ApplicationController
 
-  def new
-    @bookmarks = Bookmark.new
+  def index
+    @bookmarks = Bookmark.all
   end
 
-  # def create
-  #   @list = List.new(list_params)
-  #   @list.save
-  #   # No need for app/views/restaurants/create.html.erb
-  #   redirect_to list_path(@list)
-  # end
+  def new
+    @list = List.find(params[:list_id]) # to find the list_id
+    @bookmark = Bookmark.new
+  end
 
-  # def destroy
-  #   @bookmark = Bookmark.find(params[:id])
-  #   @bookmark.destroy
-  #   # No need for app/views/restaurants/destroy.html.erb
-  #   redirect_to lists_path, status: :see_other
-  # end
+  def create
+    @list = List.find(params[:list_id])
+    @movie = Movie.find(params[:bookmark][:movie_id])
+    @bookmark = Bookmark.new(bookmark_params)
+    @bookmark.list = @list
+    @bookmark.movie = @movie
+    if @bookmark.save
+      redirect_to list_path(@list)
+    else
+      render :new, status: :conflict
+    end
+  end
 
-  # private
+  def destroy
+    @bookmark = Bookmark.find(params[:id])
+    @bookmark.destroy
+    redirect_to lists_path(@list), status: :see_other
+  end
 
-  # def list_params
-  #   params.require(:list).permit(:name)
-  # end
+  private
+
+  def bookmark_params
+    params.require(:bookmark).permit(:comment, :movie_id, :list_id)
+  end
 end

@@ -1,4 +1,38 @@
 <h2><%= @list.name %></h2>
-<%= link_to "Add a movie", lists_path(@list) %>
+
+<%= link_to "Add a movie", new_list_bookmark_path(@list) %>
+
+
+<div class="container">
+  <div class="card-show-title">
+    <h1>Movies 🎬</h1>
+  </div>
+    <div class="row cards-movie">
+      <% @list.bookmarks.each do |bookmark| %>
+        <div class="col-6-sm">
+          <div class="card-movie">
+          <div class="card-poster">
+              <%= image_tag bookmark.movie.poster_url, alt: "movie poster" %>
+          </div>
+          <div class="card-description">
+            <div class="card-title">
+              <h5><%= bookmark.movie.title %></h5>
+              <p> <%= bookmark.movie.rating %> ⭐️</p>
+            </div>
+            <div class="card-overview">
+              <p> <%= bookmark.movie.overview %> </p>
+            </div>
+            <hr>
+              <p><strong>Review</strong></p>
+            <div class="card-review">
+              <p><%= bookmark.comment %></p>
+            <button class="delete-movie btn btn-danger">Delete</button>
+            <%= link_to "", list_bookmarks_path(bookmark), method: :delete, id:"delete-bookmark", class: "hidden" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+  </div>
 <br>
 <%= link_to "↩️ Back to list all", lists_path(@list) %>
